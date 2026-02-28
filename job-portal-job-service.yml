@@ -1,0 +1,16 @@
+# =============================================================================
+# JOB SERVICE CONFIG  (port 9002)
+# =============================================================================
+# Fetched ONLY by job-portal-job-service from Config Server.
+# Common settings (eureka, jpa, resilience4j) come from application.yml.
+# =============================================================================
+
+server:
+  port: 9002
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/job_portal_job
+    username: postgres
+    password: $7090Ashok
+    driver-class-name: org.postgresql.Driver

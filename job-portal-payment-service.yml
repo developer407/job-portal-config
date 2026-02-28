@@ -1,0 +1,30 @@
+# =============================================================================
+# PAYMENT SERVICE CONFIG  (port 9004)
+# =============================================================================
+# Fetched ONLY by job-portal-payment-service from Config Server.
+# Common settings (eureka, jpa, resilience4j) come from application.yml.
+# =============================================================================
+
+server:
+  port: 9004
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/job_portal_payment
+    username: postgres
+    password: $7090Ashok
+    driver-class-name: org.postgresql.Driver
+
+# Payment gateway credentials — supply via environment variables, never hardcode
+payment:
+  gateway:
+    razorpay:
+      key-id: ${RAZORPAY_KEY_ID}
+      key-secret: ${RAZORPAY_KEY_SECRET}
+      webhook-secret: ${RAZORPAY_WEBHOOK_SECRET}
+    stripe:
+      secret-key: ${STRIPE_SECRET_KEY}
+      webhook-secret: ${STRIPE_WEBHOOK_SECRET}
+      publishable-key: ${STRIPE_PUBLISHABLE_KEY}
+  order:
+    expiry-minutes: 15    # orders expire after 15 minutes if not paid
