@@ -8,6 +8,9 @@
 server:
   port: 9006
 
+# ===============================
+# Database Configuration
+# ===============================
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/job_portal_application
@@ -20,3 +23,45 @@ application:
   interview:
     reminder-hours-before: 24    # send reminder notification 24h before scheduled interview
   duplicate-apply-check: true    # enforce one application per candidate per job
+
+
+ 
+# ===============================
+# Eureka Discovery
+# ===============================
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# ===============================
+# Resilience4j Circuit Breaker
+# ===============================
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 20
+        minimum-number-of-calls: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        register-health-indicator: true
+
+# ===============================
+# Actuator & Health
+# ===============================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
